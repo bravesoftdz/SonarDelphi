@@ -30,6 +30,7 @@ import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Directory;
+import org.sonar.api.resources.Directory;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.delphi.DelphiPlugin;
 import org.sonar.plugins.delphi.core.DelphiLanguage;
@@ -47,6 +48,7 @@ import java.util.List;
 /**
  * Class that helps get the maven/ant configuration from .xml file
  */
+@SuppressWarnings("deprecation")
 public class DelphiProjectHelper implements BatchExtension {
 
   public static final String DEFAULT_PACKAGE_NAME = "[default]";
@@ -244,7 +246,11 @@ public class DelphiProjectHelper implements BatchExtension {
     System.out.println(("THIS IS MODULE:" + module.toString()));
     //findFileInDirectories("");
 
-    Directory directory = new Directory(dir.getPath());//Directory.fromIOFile(dir, module);
+//    Directory directory = new Directory(dir.getPath());//Directory.fromIOFile(dir, module);
+
+    Directory directory = Directory.create(dir.getPath());
+
+    //Directory directory = Directory.fromIOFile(dir, module);
 
     if (directory == null || directory.getKey() == null) {
       return Directory.create(DEFAULT_PACKAGE_NAME);
@@ -355,3 +361,4 @@ public class DelphiProjectHelper implements BatchExtension {
   }
 
 }
+

@@ -22,6 +22,7 @@
  */
 package org.sonar.plugins.delphi.debug;
 
+import org.sonar.api.SonarRuntime;
 import org.sonar.api.batch.AnalysisMode;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
@@ -31,6 +32,7 @@ import org.sonar.api.batch.fs.InputPath;
 import org.sonar.api.batch.rule.ActiveRules;
 import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.batch.sensor.cpd.NewCpdTokens;
+import org.sonar.api.batch.sensor.error.NewAnalysisError;
 import org.sonar.api.batch.sensor.highlighting.NewHighlighting;
 import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.measure.NewMeasure;
@@ -70,6 +72,21 @@ public class DebugSensorContext implements SensorContext {
    * 
    * @return Violation count
    */
+
+  @Override
+  public boolean isCancelled() {
+    return false;
+  }
+
+  @Override
+  public NewAnalysisError newAnalysisError() {
+    return new NoOpNewAnalysisError();
+  }
+
+  @Override
+  public SonarRuntime runtime() {
+    return null;
+  }
 
   @Override
   public <G extends Serializable> Measure<G> getMeasure(Metric<G> metric) {
@@ -187,46 +204,47 @@ public class DebugSensorContext implements SensorContext {
    * Unused, not implemented
    */
 
-  @Override
-  public void saveSource(Resource resource, String source) {
 
-  }
-
-  /**
-   * Unused, not implemented
-   */
-
-  @Override
-  public boolean index(Resource resource) {
-    return false;
-  }
+//  @Override
+ // public void saveSource(Resource resource, String source) {
+//
+//  }
 
   /**
    * Unused, not implemented
    */
 
-  @Override
-  public boolean index(Resource resource, Resource parentReference) {
-    return false;
-  }
+//  @Override
+//  public boolean index(Resource resource) {
+ //   return false;
+ // }
 
   /**
    * Unused, not implemented
    */
 
-  @Override
-  public boolean isExcluded(Resource reference) {
-    return false;
-  }
+//  @Override
+//  public boolean index(Resource resource, Resource parentReference) {
+//    return false;
+//  }
 
   /**
    * Unused, not implemented
    */
 
-  @Override
-  public boolean isIndexed(Resource reference, boolean acceptExcluded) {
-    return false;
-  }
+ // @Override
+ // public boolean isExcluded(Resource reference) {
+//    return false;
+//  }
+
+  /**
+   * Unused, not implemented
+   */
+
+//  @Override
+//  public boolean isIndexed(Resource reference, boolean acceptExcluded) {
+//    return false;
+//  }
 
   /**
    * Unused, not implemented

@@ -55,6 +55,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("deprecation")
 public abstract class BasePmdRuleTest {
 
   protected static final String ROOT_DIR_NAME = "/org/sonar/plugins/delphi/PMDTest";
@@ -90,6 +91,7 @@ public abstract class BasePmdRuleTest {
   }
 
   protected void configureTest(String testFileName) {
+
     project = mock(Project.class);
     perspectives = mock(ResourcePerspectives.class);
     delphiProjectHelper = DelphiTestUtils.mockProjectHelper();

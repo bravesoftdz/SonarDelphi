@@ -22,6 +22,7 @@
  */
 package org.sonar.plugins.delphi;
 
+import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
 import org.sonar.api.SonarPlugin;

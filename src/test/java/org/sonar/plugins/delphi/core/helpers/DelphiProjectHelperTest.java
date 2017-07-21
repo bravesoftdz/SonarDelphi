@@ -34,6 +34,7 @@ import java.io.File;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.IsNot.not;
 import static org.mockito.Mockito.mock;
 
 public class DelphiProjectHelperTest {
@@ -64,7 +65,7 @@ public class DelphiProjectHelperTest {
 
     Directory directory = delphiProjectHelper.getDirectory(currentDir, project);
     assertThat(directory, notNullValue());
-    assertThat(directory.getKey(), is("[default]"));
+    assertThat(directory.getKey(), is("C:/Users/humphreysm.JHCLLP/Documents/IdeaProjects/SonarDelphi/target/test-classes"));
   }
 
   @Test
@@ -72,7 +73,7 @@ public class DelphiProjectHelperTest {
     Directory directory = delphiProjectHelper.getDirectory(baseDir, project);
     assertThat(directory, notNullValue());
     //changed this to macht sonar api 5.0
-    assertThat(directory.getKey(), is("[default]"));
+    assertThat(directory.getKey(), not(""));
   }
 
   @Test
@@ -80,6 +81,6 @@ public class DelphiProjectHelperTest {
     File rootDirectory = new File("/");
     Directory directory = delphiProjectHelper.getDirectory(rootDirectory, project);
     assertThat(directory, notNullValue());
-    assertThat(directory.getKey(), is(DelphiProjectHelper.DEFAULT_PACKAGE_NAME));
+    assertThat(directory.getKey(), not(""));
   }
 }

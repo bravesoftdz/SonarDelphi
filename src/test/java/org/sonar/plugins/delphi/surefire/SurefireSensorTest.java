@@ -46,6 +46,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("deprecation")
 public class SurefireSensorTest {
 
   private static final String PROJECT_DIR = "/org/sonar/plugins/delphi/UnitTest";

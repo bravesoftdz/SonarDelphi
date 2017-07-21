@@ -33,6 +33,7 @@ import java.util.List;
 /**
  * Class used to colorize DelphiLanguage source code in Sonar window.
  */
+@SuppressWarnings("deprecation")
 public class DelphiColorizerFormat extends CodeColorizerFormat {
 
   private static final String SPAN_STRING = "<span class=\"s\">";
