@@ -22,27 +22,62 @@
  */
 package org.sonar.plugins.delphi;
 
-import org.junit.Before;
+import java.util.List;
 import org.junit.Test;
+import org.sonar.api.Plugin;
+import org.sonar.api.SonarQubeSide;
+import org.sonar.api.SonarRuntime;
+import org.sonar.api.internal.SonarRuntimeImpl;
+import org.sonar.api.utils.Version;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * @author Evgeny Mandrikov
  */
 public class DelphiPluginTest {
 
-  private DelphiPlugin plugin;
+  @Test
+  public void testGetExtensions60() {
+    Version v60 = Version.create(6, 0);
 
-  @Before
-  public void setUp() {
-    plugin = new DelphiPlugin();
+    assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v60,
+            SonarQubeSide.SERVER)).size() == 20);
+    assertTrue(extensions(SonarRuntimeImpl.forSonarLint(v60)).size() == 5);
   }
 
   @Test
-  public void testExtensions() {
-    assertThat(plugin.getExtensions().size(), greaterThan(0));
+  public void testGetExtensions72() {
+    Version v72 = Version.create(7, 2);
+
+    assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v72,
+            SonarQubeSide.SERVER)).size() == 22);
+//     assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v72,
+//             SonarQubeSide.SERVER))).contains(NoOpAnalysisWarningsWrapper
+//             .class);
+//      assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v72,
+//              SonarQubeSide.SERVER))).doesNotContain
+//              (DefaultAnalysisWarningsWrapper.class);
+    assertTrue(extensions(SonarRuntimeImpl.forSonarLint(v72)).size() == 5);
+  }
+  @Test
+  public void testGetExtensions74() {
+    Version v74 = Version.create(7, 4);
+    assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v74,
+            SonarQubeSide.SERVER)).size() == 22);
+  //  assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v74,
+  //          SonarQubeSide.SERVER))).doesNotContain
+    //          (NoOpAnalysisWarningsWrapper.class);
+  //  assertTrue(extensions(SonarRuntimeImpl.forSonarQube(v74,
+    //        SonarQubeSide.SERVER))).contains(DefaultAnalysisWarningsWrapper
+    //        .class);
+    assertTrue(extensions(SonarRuntimeImpl.forSonarLint(v74)).size() == 5);
+  }
+
+  private static List extensions(SonarRuntime runtime) {
+    Plugin.Context context = new Plugin.Context(runtime);
+    new DelphiPlugin().define(context);
+    return context.getExtensions();
   }
 
 }

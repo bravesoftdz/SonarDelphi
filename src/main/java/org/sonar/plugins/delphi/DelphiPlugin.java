@@ -25,7 +25,6 @@ package org.sonar.plugins.delphi;
 import org.sonar.api.Plugin;
 import org.sonar.api.Properties;
 import org.sonar.api.Property;
-import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.delphi.colorizer.DelphiColorizerFormat;
 import org.sonar.plugins.delphi.core.DelphiLanguage;
 import org.sonar.plugins.delphi.core.helpers.DelphiProjectHelper;
@@ -36,9 +35,6 @@ import org.sonar.plugins.delphi.pmd.profile.DelphiPmdProfileExporter;
 import org.sonar.plugins.delphi.pmd.profile.DelphiPmdProfileImporter;
 import org.sonar.plugins.delphi.pmd.profile.DelphiPmdRuleDefinition;
 import org.sonar.plugins.delphi.surefire.SurefireSensor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Main Sonar DelphiLanguage plugin class
@@ -70,8 +66,8 @@ import java.util.List;
   @Property(key = DelphiPlugin.CODECOVERAGE_REPORT_KEY, defaultValue = "delphi code coverage report", name = "Code coverage report file",
     description = "Code coverage report to be parsed by Delphi Code Coverage", global = false, project = true),
 })
-public class DelphiPlugin extends SonarPlugin {
 
+public class DelphiPlugin implements Plugin {
   public static final String EXCLUDED_DIRECTORIES_KEY = "sonar.delphi.sources.excluded";
   public static final String CC_EXCLUDED_KEY = "sonar.delphi.codecoverage.excluded";
   public static final String INCLUDED_DIRECTORIES_KEY = "sonar.delphi.sources.include";
@@ -81,33 +77,25 @@ public class DelphiPlugin extends SonarPlugin {
   public static final String CODECOVERAGE_TOOL_KEY = "sonar.delphi.codecoverage.tool";
   public static final String CODECOVERAGE_REPORT_KEY = "sonar.delphi.codecoverage.report";
 
-  /**
-   * {@inheritDoc}
-   */
 
   @Override
-  public List<Class> getExtensions() {
-    List<Class> list = new ArrayList<Class>();
-
+  public void define(Context context) {
     // Sensors
-    list.add(DelphiSensor.class);
+    context.addExtension(DelphiSensor.class);
     // Core
-    list.add(DelphiLanguage.class);
-    list.add(DelphiCpdMapping.class);
+    context.addExtension(DelphiLanguage.class);
+    context.addExtension(DelphiCpdMapping.class);
     // Core helpers
-    list.add(DelphiProjectHelper.class);
+    context.addExtension(DelphiProjectHelper.class);
     // Colorizer
-    list.add(DelphiColorizerFormat.class);
+    context.addExtension(DelphiColorizerFormat.class);
     // Surefire
-    list.add(SurefireSensor.class);
+    context.addExtension(SurefireSensor.class);
     // Pmd
-    list.add(DelphiPmdSensor.class);
-    list.add(DelphiPmdRuleDefinition.class);
-    list.add(DefaultDelphiProfile.class);
-    list.add(DelphiPmdProfileExporter.class);
-    list.add(DelphiPmdProfileImporter.class);
-
-    return list;
+    context.addExtension(DelphiPmdSensor.class);
+    context.addExtension(DelphiPmdRuleDefinition.class);
+    context.addExtension(DefaultDelphiProfile.class);
+    context.addExtension(DelphiPmdProfileExporter.class);
+    context.addExtension(DelphiPmdProfileImporter.class);
   }
-
 }
