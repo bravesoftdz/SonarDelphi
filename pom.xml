@@ -70,7 +70,7 @@
 
 	<properties>
 		<!--Version Fields-->
-		<sonar.version>6.0</sonar.version>
+		<sonar.apiVersion>6.0</sonar.apiVersion>
 		<sonarcobertura.version>1.4</sonarcobertura.version>
 		<antlr-runtime.version>3.3</antlr-runtime.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-plugin-api</artifactId>
-			<version>${sonar.version}</version>
+			<version>${sonar.apiVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Plugin's specific deps -->
@@ -140,7 +140,7 @@
 		<dependency>
 			<groupId>org.sonarsource.sonarqube</groupId>
 			<artifactId>sonar-testing-harness</artifactId>
-			<version>${sonar.version}</version>
+			<version>${sonar.apiVersion}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>

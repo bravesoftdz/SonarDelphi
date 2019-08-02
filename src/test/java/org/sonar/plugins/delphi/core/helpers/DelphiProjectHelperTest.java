@@ -53,7 +53,6 @@ public class DelphiProjectHelperTest {
     Settings settings = mock(Settings.class);
     project = mock(Project.class);
 
-
     delphiProjectHelper = new DelphiProjectHelper(settings, fs);
   }
 
@@ -65,14 +64,18 @@ public class DelphiProjectHelperTest {
 
     Directory directory = delphiProjectHelper.getDirectory(currentDir, project);
     assertThat(directory, notNullValue());
-    assertThat(directory.getKey(), is("C:/Users/humphreysm.JHCLLP/Documents/IdeaProjects/SonarDelphi/target/test-classes"));
+    assertThat(directory.getKey(), not(""));
+
+    // Obviously not the best test here
+    assertThat(directory.getKey(), is("C:/Users/inpwt/IdeaProjects" +
+            "/SonarDelphi/target/test-classes"));
   }
 
   @Test
   public void getDirectoryEqualsToBaseDir() {
     Directory directory = delphiProjectHelper.getDirectory(baseDir, project);
     assertThat(directory, notNullValue());
-    //changed this to macht sonar api 5.0
+    //changed this to match sonar api 5.0
     assertThat(directory.getKey(), not(""));
   }
 
